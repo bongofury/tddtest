@@ -57,6 +57,26 @@ public class WorldTest {
 	  assertEquals(new World(World.at(0, 0)), new World(World.at(-1, -1), World.at(0, 0), World.at(1, 1)).next());
 	}
 
-
+	@Test
+	public void blinker() {
+		assertEquals(new World(World.at(-1, 0),World.at(0, 0),World.at(1, 0)), 
+				new World(World.at(0, -1), World.at(0, 0), World.at(0, 1)).next());
+	}
+	
+	@Test
+	public void livingCellWithMoreThanThreeNeighboursShouldDie() {
+		assertEquals(new World(World.at(-1, 1),World.at(1, 1),World.at(1, 0),
+				World.at(-1, 0), World.at(0, -1)),
+				new World(World.at(-1, 0), World.at(0, 0), World.at(1, 0), 
+						World.at(0, 1), World.at(1, 1)).next());
+	}
+	
+	@Test
+	public void finalTest() {
+		assertEquals(new World(World.at(-1, -1),World.at(0, -1),World.at(1, -1),
+				World.at(-1, 1), World.at(0, 1),World.at(1, 1),World.at(-1, 0),World.at(1, 0)),
+				new World(World.at(-1, 0), World.at(0, 0), World.at(1, 0), 
+						World.at(0, 1), World.at(0, -1)).next());
+	}
 
 }

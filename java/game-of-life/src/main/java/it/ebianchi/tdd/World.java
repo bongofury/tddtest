@@ -57,12 +57,19 @@ public class World {
 	}
 	
 	public World next() {
-		Set<Point> newAlives = new HashSet<Point>();
-		for (Point alive : alives) {
-			if (neighbours(alive) == 2)
-				newAlives.add(alive);
+		  Set<Point> aliveInNext = new HashSet<Point>();
+		  for (Point cell : alives) {
+		    for (int yDelta = -1; yDelta <= 1; yDelta++) {
+		      for (int xDelta = -1; xDelta <= 1; xDelta++) {
+		        Point testingCell = at(cell.x + xDelta, cell.y + yDelta);
+		        if ((alives.contains(testingCell) && neighbours(testingCell) == 2) || neighbours(testingCell) == 3) {
+		          aliveInNext.add(testingCell);
+		        }
+		      }
+		    }
+		  }
+		  return new World(aliveInNext);
 		}
-		return new World(newAlives);
-	}
+
 
 }
